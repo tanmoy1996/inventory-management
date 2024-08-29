@@ -7,6 +7,9 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import Login from "./Login";
 import Home from "./page";
 import StoreProvider from "./StoreProvider";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,9 +29,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider session={session}>
-          <StoreProvider>{!session ? <Login /> : <Home />}</StoreProvider>
-        </SessionProvider>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <SessionProvider session={session}>
+              <StoreProvider>{!session ? <Login /> : <Home />}</StoreProvider>
+            </SessionProvider>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

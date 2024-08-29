@@ -1,6 +1,6 @@
 "use client";
-import { decrement, increment } from "@/lib/features/counterSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { decrement, increment } from "@/store/features/counterSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { signOut, useSession } from "next-auth/react";
 
 export default function Home() {

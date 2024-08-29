@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, Button, TextField } from "@mui/material";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -26,17 +27,19 @@ export default function Login() {
     }
   };
   return (
-    <div>
-      <input
+    <Box>
+      <TextField
         type="text"
+        label="email"
         onInput={({ target }: any) => setEmail(target.value)}
       />
-      <input
+      <TextField
         type="password"
+        label="password"
         onInput={({ target }: any) => setPassword(target.value)}
       />
-      <button onClick={(e) => handleLogin(e)}>Login</button>;
-      <button onClick={() => signIn("google")}>G Login</button>;
-    </div>
+      <Button onClick={(e) => handleLogin(e)}>Login</Button>
+      <Button onClick={() => signIn("google")}>G Login</Button>
+    </Box>
   );
 }
