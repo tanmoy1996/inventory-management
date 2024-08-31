@@ -4,12 +4,12 @@ import "@/theme/globals.css";
 import SessionProvider from "./SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import Login from "./Login";
-import Home from "./page";
 import StoreProvider from "./StoreProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import DesignProvider from "./ThemeProvider";
 import { ThemeContextProvider } from "@/theme/ThemeContextProvider";
+import { Box } from "@mui/material";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +24,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let session = await getServerSession(authOptions);
-  console.log("s: ", session);
 
   return (
     <html lang="en">
@@ -33,7 +32,21 @@ export default async function RootLayout({
           <ThemeContextProvider>
             <DesignProvider>
               <SessionProvider session={session}>
-                <StoreProvider>{!session ? <Login /> : <Home />}</StoreProvider>
+                <StoreProvider>
+                  <>
+                    <Box className="w-screen h-screen absolute">
+                      <Image
+                        fill
+                        src="/bg.jpg"
+                        alt="background image"
+                        loading="lazy"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </Box>
+                    <Box className="w-screen h-screen absolute bg-slate-50/60 backdrop-blur-lg"></Box>
+                    {children}
+                  </>
+                </StoreProvider>
               </SessionProvider>
             </DesignProvider>
           </ThemeContextProvider>
